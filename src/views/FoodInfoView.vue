@@ -8,7 +8,7 @@
 		/>
 
 		<div v-if="dish" class="content">
-			<van-image :src="dish.thumb" width="100%" height="200" fit="cover" />
+			<van-image :src="dish.image || dish.thumb" width="100%" height="200" fit="cover" lazy-load />
 
 			<van-cell-group inset title="基本信息">
 				<van-cell title="名称" :value="dish.name" />

@@ -1,14 +1,24 @@
 import { defineStore } from 'pinia'
 
-import fishThumb from '../assets/foods/鱼香肉丝.webp'
-import burgerThumb from '../assets/foods/汉堡.webp'
-import sushiThumb from '../assets/foods/寿司.webp'
-import strawberryCakeThumb from '../assets/foods/草莓蛋糕.webp'
-import bobaMilkTeaThumb from '../assets/foods/珍珠奶茶.webp'
-import puddingThumb from '../assets/foods/布丁.webp'
-import matchaIceCreamThumb from '../assets/foods/抹茶冰淇淋.webp'
-import pizzaThumb from '../assets/foods/披萨.webp'
-import kungPaoChickenThumb from '../assets/foods/宫保鸡丁.webp'
+import fishImage from '../assets/foods/鱼香肉丝.webp'
+import burgerImage from '../assets/foods/汉堡.webp'
+import sushiImage from '../assets/foods/寿司.webp'
+import strawberryCakeImage from '../assets/foods/草莓蛋糕.webp'
+import bobaMilkTeaImage from '../assets/foods/珍珠奶茶.webp'
+import puddingImage from '../assets/foods/布丁.webp'
+import matchaIceCreamImage from '../assets/foods/抹茶冰淇淋.webp'
+import pizzaImage from '../assets/foods/披萨.webp'
+import kungPaoChickenImage from '../assets/foods/宫保鸡丁.webp'
+
+import fishThumb from '../assets/foods/鱼香肉丝.thumb.webp'
+import burgerThumb from '../assets/foods/汉堡.thumb.webp'
+import sushiThumb from '../assets/foods/寿司.thumb.webp'
+import strawberryCakeThumb from '../assets/foods/草莓蛋糕.thumb.webp'
+import bobaMilkTeaThumb from '../assets/foods/珍珠奶茶.thumb.webp'
+import puddingThumb from '../assets/foods/布丁.thumb.webp'
+import matchaIceCreamThumb from '../assets/foods/抹茶冰淇淋.thumb.webp'
+import pizzaThumb from '../assets/foods/披萨.thumb.webp'
+import kungPaoChickenThumb from '../assets/foods/宫保鸡丁.thumb.webp'
 
 const SEED_VERSION = 3
 const DEFAULT_DISHES = [
@@ -20,6 +30,7 @@ const DEFAULT_DISHES = [
 		etaMinutes: 25,
 		distanceKm: 2.1,
 		thumb: fishThumb,
+		image: fishImage,
 		detail: '经典川味家常菜，酸甜微辣，配米饭很香。'
 	},
 	{
@@ -30,6 +41,7 @@ const DEFAULT_DISHES = [
 		etaMinutes: 20,
 		distanceKm: 2.8,
 		thumb: burgerThumb,
+		image: burgerImage,
 		detail: '现烤面包胚搭配多汁肉饼，简单满足。'
 	},
 	{
@@ -40,6 +52,7 @@ const DEFAULT_DISHES = [
 		etaMinutes: 30,
 		distanceKm: 3.5,
 		thumb: sushiThumb,
+		image: sushiImage,
 		detail: '米饭与海味的清爽组合，口感丰富。'
 	},
 	{
@@ -50,6 +63,7 @@ const DEFAULT_DISHES = [
 		etaMinutes: 20,
 		distanceKm: 1.9,
 		thumb: strawberryCakeThumb,
+		image: strawberryCakeImage,
 		detail: '绵软蛋糕胚搭配清甜草莓，甜而不腻。'
 	},
 	{
@@ -60,6 +74,7 @@ const DEFAULT_DISHES = [
 		etaMinutes: 15,
 		distanceKm: 1.5,
 		thumb: bobaMilkTeaThumb,
+		image: bobaMilkTeaImage,
 		detail: 'Q 弹珍珠配香浓奶茶，冰热皆宜。'
 	},
 	{
@@ -70,6 +85,7 @@ const DEFAULT_DISHES = [
 		etaMinutes: 15,
 		distanceKm: 1.7,
 		thumb: puddingThumb,
+		image: puddingImage,
 		detail: '细腻顺滑的口感，淡奶香回味。'
 	},
 	{
@@ -80,6 +96,7 @@ const DEFAULT_DISHES = [
 		etaMinutes: 15,
 		distanceKm: 2.0,
 		thumb: matchaIceCreamThumb,
+		image: matchaIceCreamImage,
 		detail: '抹茶清香微苦，奶味柔和，夏日解暑。'
 	},
 	{
@@ -90,6 +107,7 @@ const DEFAULT_DISHES = [
 		etaMinutes: 35,
 		distanceKm: 3.8,
 		thumb: pizzaThumb,
+		image: pizzaImage,
 		detail: '拉丝芝士与丰富配料，热乎更好吃。'
 	},
 	{
@@ -100,6 +118,7 @@ const DEFAULT_DISHES = [
 		etaMinutes: 28,
 		distanceKm: 2.6,
 		thumb: kungPaoChickenThumb,
+		image: kungPaoChickenImage,
 		detail: '香辣开胃，鸡丁配花生更有层次。'
 	}
 ]

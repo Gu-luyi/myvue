@@ -3,6 +3,7 @@ import path from 'node:path'
 import sharp from 'sharp'
 
 const projectRoot = process.cwd()
+const FORCE = process.argv.includes('--force')
 
 const TARGET_DIRS = [
   'src/assets/foods',
@@ -34,30 +35,61 @@ function toWebpPath(pngPath) {
   return pngPath.replace(/\.png$/i, '.webp')
 }
 
+function toThumbWebpPath(pngPath) {
+  return pngPath.replace(/\.png$/i, '.thumb.webp')
+}
+
 async function convertPngToWebp(pngPath) {
   const webpPath = toWebpPath(pngPath)
 
-  // Skip if already exists and is newer than source
-  const exists = await fileExists(webpPath)
-  if (exists) {
-    const [srcStat, outStat] = await Promise.all([fs.stat(pngPath), fs.stat(webpPath)])
-    if (outStat.mtimeMs >= srcStat.mtimeMs) return { status: 'skip', pngPath, webpPath }
+  const rel = path.relative(projectRoot, pngPath).replace(/\\/g, '/')
+  const isBanner = rel.startsWith('src/assets/lunbo/')
+  const isFood = rel.startsWith('src/assets/foods/')
+  const thumbPath = isFood ? toThumbWebpPath(pngPath) : null
+
+  // Skip only if output is up-to-date (unless --force). Foods have two outputs.
+  if (!FORCE) {
+    const [srcStat, webpExists, thumbExists] = await Promise.all([
+      fs.stat(pngPath),
+      fileExists(webpPath),
+      thumbPath ? fileExists(thumbPath) : Promise.resolve(true)
+    ])
+
+    if (webpExists) {
+      const webpStat = await fs.stat(webpPath)
+      const webpUpToDate = webpStat.mtimeMs >= srcStat.mtimeMs
+
+      if (isFood) {
+        const thumbUpToDate = thumbExists ? (await fs.stat(thumbPath)).mtimeMs >= srcStat.mtimeMs : false
+        if (webpUpToDate && thumbUpToDate) return { status: 'skip', pngPath, webpPath }
+      } else {
+        if (webpUpToDate) return { status: 'skip', pngPath, webpPath }
+      }
+    }
   }
 
   const input = sharp(pngPath, { failOn: 'none' })
 
-  // Resize very large images down to a reasonable max width.
-  // - banners: 160px height in UI; 960px width is enough for most phones
-  // - thumbs: card thumb ~88px; but we keep some room for retina and reuse
   const metadata = await input.metadata()
-  const maxWidth = 1200
+  const maxWidth = isBanner ? 960 : 1200
+  const quality = isBanner ? 68 : 75
   const needResize = metadata.width && metadata.width > maxWidth
 
-  const pipeline = needResize ? input.resize({ width: maxWidth, withoutEnlargement: true }) : input
+  const pipeline = needResize
+    ? input.resize({ width: maxWidth, withoutEnlargement: true })
+    : input
 
-  await pipeline
-    .webp({ quality: 75, effort: 6 })
-    .toFile(webpPath)
+  await pipeline.webp({ quality, effort: 6 }).toFile(webpPath)
+
+  // For list thumbnails, generate a much smaller variant.
+  if (isFood) {
+    const thumbMaxWidth = 320
+    const thumbNeedResize = metadata.width && metadata.width > thumbMaxWidth
+    const thumbPipeline = thumbNeedResize
+      ? sharp(pngPath, { failOn: 'none' }).resize({ width: thumbMaxWidth, withoutEnlargement: true })
+      : sharp(pngPath, { failOn: 'none' })
+    await thumbPipeline.webp({ quality: 70, effort: 6 }).toFile(thumbPath)
+  }
 
   return { status: 'ok', pngPath, webpPath }
 }
