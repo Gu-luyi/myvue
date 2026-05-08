@@ -1,14 +1,14 @@
 import { defineStore } from 'pinia'
 
-import fishThumb from '../assets/foods/鱼香肉丝.png'
-import burgerThumb from '../assets/foods/汉堡.png'
-import sushiThumb from '../assets/foods/寿司.png'
-import strawberryCakeThumb from '../assets/foods/草莓蛋糕.png'
-import bobaMilkTeaThumb from '../assets/foods/珍珠奶茶.png'
-import puddingThumb from '../assets/foods/布丁.png'
-import matchaIceCreamThumb from '../assets/foods/抹茶冰淇淋.png'
-import pizzaThumb from '../assets/foods/披萨.png'
-import kungPaoChickenThumb from '../assets/foods/宫保鸡丁.png'
+import fishThumb from '../assets/foods/鱼香肉丝.webp'
+import burgerThumb from '../assets/foods/汉堡.webp'
+import sushiThumb from '../assets/foods/寿司.webp'
+import strawberryCakeThumb from '../assets/foods/草莓蛋糕.webp'
+import bobaMilkTeaThumb from '../assets/foods/珍珠奶茶.webp'
+import puddingThumb from '../assets/foods/布丁.webp'
+import matchaIceCreamThumb from '../assets/foods/抹茶冰淇淋.webp'
+import pizzaThumb from '../assets/foods/披萨.webp'
+import kungPaoChickenThumb from '../assets/foods/宫保鸡丁.webp'
 
 const SEED_VERSION = 3
 const DEFAULT_DISHES = [

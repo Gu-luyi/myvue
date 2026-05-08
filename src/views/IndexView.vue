@@ -13,7 +13,7 @@
         <div class="section">
             <van-swipe :autoplay="3000" lazy-render>
                 <van-swipe-item v-for="(img, idx) in banners" :key="idx">
-                    <van-image :src="img" width="100%" height="160" fit="cover" />
+                    <van-image :src="img" width="100%" height="160" fit="cover" lazy-load />
                 </van-swipe-item>
             </van-swipe>
         </div>
@@ -31,11 +31,19 @@
                 v-for="dish in displayDishes"
                 :key="dish.id"
                 :title="dish.name"
-                :thumb="dish.thumb"
                 :desc="dishDesc(dish)"
                 :price="formatMoney(dish.price)"
                 @click="goDish(dish)"
             >
+                <template #thumb>
+                    <van-image
+                        :src="dish.thumb"
+                        width="88"
+                        height="88"
+                        fit="cover"
+                        lazy-load
+                    />
+                </template>
                 <template #footer>
                     <span v-if="pickedCount(dish.id)" class="picked">已选 {{ pickedCount(dish.id) }}</span>
                     <van-button size="small" type="primary" @click.stop="add(dish)">加入订单</van-button>
@@ -48,10 +56,10 @@
 import { showToast } from 'vant'
 import { useOrderStore } from '../store/order'
 
-import banner1 from '../assets/lunbo/1.png'
-import banner2 from '../assets/lunbo/2.png'
-import banner3 from '../assets/lunbo/3.png'
-import banner4 from '../assets/lunbo/4.png'
+import banner1 from '../assets/lunbo/1.webp'
+import banner2 from '../assets/lunbo/2.webp'
+import banner3 from '../assets/lunbo/3.webp'
+import banner4 from '../assets/lunbo/4.webp'
 
 export default {
     name: 'IndexView',
